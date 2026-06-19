@@ -1,15 +1,16 @@
 import sys
+import constants
 from func import Category as C
 
-category = {
-    "Utilities": [],
-    "Transportation": [],
-    "Food": [],
-    "Insurance": [],
-    "Entertainment": [],
-    "Personal Care": [],
-    "Credit": []
-}
+# category = {
+#     "Utilities": [],
+#     "Transportation": [],
+#     "Food": [],
+#     "Insurance": [],
+#     "Entertainment": [],
+#     "Personal Care": [],
+#     "Credit": []
+# }
 
 while True:
     print("\n==== Expense Tracker ====\n")

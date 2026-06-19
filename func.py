@@ -1,4 +1,4 @@
-from main.py import category
+import constants as const
 
 class Category:
 
