@@ -1,22 +1,22 @@
 import constants as const
 
-class Category:
+class ChooseCategory:
 
-    categories = [
-        "Utilities", "Transportation", "Food", "Insurance",
-        "Entertainment", "Personal Care", "Credit"
-    ]
+    def __init__(self, num: int):
+        self.num = num
+        self.categories = [
+            "Utilities", "Transportation", "Food", "Insurance",
+            "Entertainment", "Personal Care", "Credit"
+        ]
+        # self.category_tracker = {cat: [] for cat in self.categories}
 
-    def __init__(self):
-        self.category_tracker = {cat: [] for cat in self.categories}
-
-    def add_to_cat(self, num):
+    def add_to_cat(self) -> bool:
         while True:
-            cat = self.categories[(num + 1) % len(self.categories)]
+            cat = self.categories[(self.num - 1) % len(self.categories)]
 
             try:
                 amount = float(input(f"Amount for {cat}: "))
-                self.category[cat].append(amount)
+                const.final_category[cat].append(amount)
             except ValueError as e:
                 print(f"Invalid entry: ({e})")
                 continue
@@ -30,4 +30,3 @@ class Category:
             except ValueError as e:
                 print(f"Invalid entry ({e})")
                 continue
-            

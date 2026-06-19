@@ -1,4 +1,5 @@
 import sys
+from expense_tracker.my_functions import Category as C
 
 while True:
     print("\n==== Expense Tracker ====\n")
