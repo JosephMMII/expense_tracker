@@ -1,14 +1,13 @@
-import constants as const
+import constants
 
 class ChooseCategory:
 
     def __init__(self, num: int):
         self.num = num
         self.categories = [
-            "Utilities", "Transportation", "Food", "Insurance",
-            "Entertainment", "Personal Care", "Credit"
+            "Utilities:", "Transportation:", "Food:", "Insurance:",
+            "Entertainment:", "Personal Care:", "Credit:"
         ]
-        # self.category_tracker = {cat: [] for cat in self.categories}
 
     def add_to_cat(self) -> bool:
         while True:
@@ -16,7 +15,7 @@ class ChooseCategory:
 
             try:
                 amount = float(input(f"Amount for {cat}: "))
-                const.final_category[cat].append(amount)
+                constants.final_category[cat].append(amount)
             except ValueError as e:
                 print(f"Invalid entry: ({e})")
                 continue
@@ -30,3 +29,6 @@ class ChooseCategory:
             except ValueError as e:
                 print(f"Invalid entry ({e})")
                 continue
+
+
+
