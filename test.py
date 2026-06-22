@@ -2,16 +2,6 @@ import sys
 import constants
 import my_functions as mf
 
-# category = {
-#     "Utilities": [],
-#     "Transportation": [],
-#     "Food": [],
-#     "Insurance": [],
-#     "Entertainment": [],
-#     "Personal Care": [],
-#     "Credit": []
-# }
-
 while True:
     ### Prompt to select what user wants to do ###
     print("\n==== Expense Tracker ====")
@@ -26,13 +16,16 @@ while True:
         print(f"Invalid entry: ({e})")
         continue
 
-    if choice not in range(1,8): # Prevent input outside of category range
+    # Restart loop if 'choice' not in range 
+    # and exit program if 'choice' is 7
+    if choice not in range(1,8): 
         print("\nInvalid entry. Number must be between 1-7.")
         continue
-    elif choice == 7:            # Exit program by user input
+    elif choice == 7:
         sys.exit()
 
-    if choice == 1:
+    # Add expenses by category
+    if choice == 1: 
         print("\n==== Enter category ====")
         print("1. Utilities\n2. Transportation\n3. Food\n4. Insurance\n5. Entertainment\n6. Personal Care\n7. Credit")
         print("=" * 26)
@@ -50,29 +43,31 @@ while True:
         var = mf.ChooseCategory(cat)
         var.add_to_cat()
 
-        if var == False:
-            break
-    elif choice == 2:
+    # View all lists of expenses
+    elif choice == 2: 
         print("\n==== List of Expenses ====")
 
         # Print key, value pair to user
         for key, value in constants.final_category.items():
             print(key, value)
         print("=" * 26)
-    elif choice == 3:
-        value = list(constants.final_category.values())
-        total = 0
 
-        for arr in value:
-            total += sum(arr)
-        
-        print(f"Total spending: (${total})")
-    elif choice == 4:
-        print("\n==== Search category ====")
-        print("1. Utilities\n2. Transportation\n3. Food\n4. Insurance\n5. Entertainment\n6. Personal Care\n7. Credit")
-        print("=" * 26)
+    # View total expense
+    elif choice == 3: 
+        total = sum(sum(arr) for arr in constants.final_category.values())
+        print(f"Total spending: (${total:.2f})")
+
+    # Search list of expense by category
+    elif choice == 4: 
+        categories = list(constants.final_category.keys())
 
         while True:
+            print("\n==== Search category ====")
+
+            for idx, category in enumerate(categories, 1):
+                print(f"{idx}. {category}")
+            print("=" * 26)
+
             try:
                 var = int(input("Select category to search: "))
             except ValueError as e:
@@ -80,26 +75,23 @@ while True:
                 continue
 
             if var not in range(1,8):
-                print("Invalid entry. Number must be between 1-7.")
+                print("invalid entry. Number must be between 1-7.")
                 continue
 
-            count = 0
-            for key, value in constants.final_category.items():
-                count += 1
-                if count == var:
-                    print(key, value)
-                    break
+            target_key = categories[var - 1]
 
-
-            try:
-                ans = str(input("Would you like to search another category? (Y/N): "))
-            except ValueError as e:
-                print(f"Invalid entry ({e})")
-                continue
-
-            if ans.lower() == "y":
-                continue
-            else:
+            ans = input("Would you like to search another category? (Y/N): ").strip().lower()
+            if ans != "y":
                 break
+            
+    # Save expenses to excel file
+    elif choice == 5: 
+        df = mf.save_data()
+        
+        print("\n==== Expenses Saved ====")
+        print(df)
+        print("=" * 26)
 
-
+    # Load expenses dataframe
+    elif choice == 6: 
+        mf.load_data()
